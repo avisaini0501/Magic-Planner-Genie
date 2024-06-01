@@ -1,0 +1,3 @@
+rasa==2.8.0
+rasa-sdk==2.8.0
+requests==2.25.1
