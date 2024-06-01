@@ -1,0 +1,45 @@
+# Configuration for Rasa NLU.
+# https://rasa.com/docs/rasa/nlu/components/
+language: en
+
+pipeline:
+  - name: SpacyNLP
+    model: "en_core_web_lg"
+  - name: SpacyTokenizer
+  - name: SpacyEntityExtractor
+    dimensions: ["DATE","MONEY","ORG"]
+  - name: SpacyFeaturizer
+    pooling: mean
+  - name: CountVectorsFeaturizer
+    analyzer: char_wb
+    min_ngram: 1
+    max_ngram: 4
+  - name: DIETClassifier
+    epochs: 100
+  - name: FallbackClassifier
+    threshold: 0.6
+    ambiguity_threshold: 0.1
+  - name: EntitySynonymMapper
+ 
+
+# Configuration for Rasa Core.
+# https://rasa.com/docs/rasa/core/policies/
+policies:
+# # No configuration for policies was provided. The following default policies were used to train your model.
+# # If you'd like to customize them, uncomment and adjust the policies.
+# # See https://rasa.com/docs/rasa/policies for more information.
+  - name: MemoizationPolicy
+  # - name: KerasPolicy
+  - name: MappingPolicy
+  - name: RulePolicy
+#   - name: UnexpecTEDIntentPolicy
+#     max_history: 5
+#     epochs: 100
+  - name: TEDPolicy
+    max_history: 5
+    epochs: 100
+    constrain_similarities: true
+  - name: FallbackPolicy
+    nlu_threshold: 0.6  # Adjust this threshold as per your requirement
+    core_threshold: 0.3
+    fallback_action_name: 'action_fallback_langchain'

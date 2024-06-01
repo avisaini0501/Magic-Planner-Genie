@@ -1,0 +1,200 @@
+version: "2.0"
+
+intents:
+  - greet
+  - goodbye
+  - affirm
+  - deny
+  - submit
+  - plan_your_journey
+  - general_inquiry
+  - general_inquiry_exact
+  - bot_challenge
+  - select_hotel
+  - itinerary
+  - discounts_and_coupons
+
+responses:
+  utter_greet:
+  - text: "Hello, great to see you again Nigel!\n\n I'm your Walt Disney World Trip Genie, ready to grant all your magical wishes for an unforgettable adventure. So, how can I assist you today?"
+    buttons:
+    - title: "Plan your journey"
+      payload: "/plan_your_journey"
+    - title: "General Inquiry"
+      payload: "/general_inquiry"
+    - title: "Discounts and coupons"
+      payload: "/general_inquiry"
+
+  utter_ask:
+  - text: "That's wonderful! I'm here to make sure you have an unforgettable time at the most magical place on Earth. To start planning, could you please provide some details about your trip? "
+  
+  utter_ask2:
+  - text: "Welcome! Whether you're seeking answers to your questions, or hunting for exclusive deals and rewards, I've got you covered. Let's make your experience seamless!!"
+  utter_ask3:
+  - text: "Hello there! Whether you have questions or need clarifications about your upcoming journey, I'm here to help. Let's dive right in."
+  utter_help:
+  - text: Is there anything else I can help you with?
+    buttons:
+    - title: "Plan your journey"
+      payload: "/plan_your_journey"
+    - title: "General Inquiry"
+      payload: "/general_inquiry"
+    - title: "Discounts and coupons"
+      payload: "/general_inquiry"
+
+  utter_question:
+  - text: What do you want to know?
+
+  utter_ques:
+  - text: "Let me know the number of days you'll be visiting and your budget."
+
+  utter_hotel_options:
+  - text: |
+      Let's begin by discovering some incredible hotels that perfectly match your preferences.
+      Planning a Journey is a two-step process, and we'll start by showcasing a range of accommodations tailored to your budget, desired duration, and family's needs.
+
+  utter_splendid:
+  - text: "Splendid! Thank you for sharing those initial details, Nigel. Let's add those final touches to make your upcoming adventure truly enchanting!"
+
+  utter_form: 
+  - text: "FORM ###"
+    buttons:
+    - title: "Submit"
+      payload: "/submit"
+
+  utter_more_queries:
+  - text: Do you have any more queries?
+    buttons:
+    - title: "Yes"
+      payload: /affirm
+    - title: "No"
+      payload: /deny
+
+  utter_hotel_query:
+  - text: Are there any questions regarding these resort options?
+    buttons:
+    - title: "Yes"
+      payload: /affirm
+    - title: "No"
+      payload: /deny
+  
+  utter_more_hotel_query:
+  - text: Do you have more questions?
+    buttons:
+    - title: "Yes"
+      payload: /affirm
+    - title: "No"
+      payload: /deny
+  
+  utter_select_hotel:
+  - text: To ensure your itinerary is tailored to your budget, please choose one of the following hotels. Your selection will help us align your entire trip accordingly.
+    buttons:
+    - payload: '/select_hotel{{"ORG": "Yacht Club Resort"}}'
+      title: Yacht Club Resort
+    - payload: '/select_hotel{{"ORG": "Wilderness Lodge"}}'
+      title: Wilderness Lodge
+    - payload: '/select_hotel{{"ORG": "Animal Kingdom Villas"}}'
+      title: Animal Kingdom Villas
+    - payload: '/select_hotel{{"ORG": "Beach Club Villas"}}'
+      title: Beach Club Villas
+    - payload: '/select_hotel{{"ORG": "Polynesian Village Resort"}}'
+      title: Polynesian Village Resort
+    
+  utter_itinerary:
+  - text: "Fabulous! Now let's have a look at your Perfect Itinerary.\n\nThis will be tailor-made journey that encompasses your preferences and ensures a delightful experience for you and your family."
+
+  utter_showit:
+  - text: "Display_Itinerary###"
+
+  utter_ifmodify:
+  - text: "Do you wish to modify your itinerary?"
+    buttons:
+    - title: "Yes"
+      payload: /affirm
+    - title: "No"
+      payload: /deny
+
+  utter_modifyit: 
+  - text: "What changes do you wish to make?"
+
+  utter_farewell_msg1:
+  - text: "Your personalized itinerary has been created and sent to your email! You can view your itinerary [here](https://disney.autokaas.com/itinerary) and if you have any changes, feel free to reach out to us."
+
+  utter_farewell_msg2:
+  - text: "Have a fantastic trip, and we hope to see you again soon!"
+
+  utter_goodbye:
+  - text: "Bye"
+
+  utter_iamabot:
+  - text: "I am a bot, powered by Rasa."
+
+  # utter_fallback:
+  # - text: "Out of context query. Kindly input a valid intent!"
+
+  utter_ask_DATE:
+  - text: "Please provide the no. of days for your plan."
+  
+  utter_ask_MONEY:
+  - text: "Please specify your budget."
+  
+entities:
+  - DATE
+  - MONEY
+  - ORG
+
+actions:
+  - validate_days_and_budget_form
+  - action_langchain_payload
+  - action_recommend
+  - action_save_user_question
+  - action_handle_inquiry
+  - action_langchain_payload2
+  - action_save_hotel_question
+  - action_handle_hotel_inquiry
+  - action_fallback_langchain
+
+slots:
+  DATE:
+    type: text
+    influence_conversation: false
+  MONEY:
+    type: text
+    influence_conversation: false
+  ORG:
+    type: text
+    influence_conversation: false
+  user_query:
+    type: text
+    influence_conversation: false
+  hotel_query:
+    type: text
+    influence_conversation: false
+
+forms:
+  # days_and_budget_form:
+  #   required_slots:
+  #     DATE:
+  #       -type: from_entity
+  #     MONEY:
+  #       -type: from_entity
+   
+  inquiry_form:
+    required_slots:
+      user_query:
+        - type: from_text
+  journey_form:
+    required_slots:
+      MONEY:
+        - type: from_entity
+          entity: MONEY
+      DATE: 
+        - type: from_text
+  hotel_form:
+    required_slots:
+      hotel_query:
+        - type: from_text
+
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true

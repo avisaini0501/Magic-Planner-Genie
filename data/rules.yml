@@ -1,0 +1,57 @@
+version: "2.0"
+
+rules:
+
+- rule: Say goodbye anytime the user says goodbye
+  steps:
+  - intent: goodbye
+  - action: utter_goodbye
+
+- rule: Say 'I am a bot' anytime the user challenges
+  steps:
+  - intent: bot_challenge
+  - action: utter_iamabot
+
+- rule: submit question
+  condition:
+  - active_loop: inquiry_form
+  steps:
+  - action: inquiry_form
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: action_handle_inquiry
+  - action: utter_more_queries
+
+- rule: submit hotel query
+  condition:
+  - active_loop: hotel_form
+  steps:
+  - action: hotel_form
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: action_handle_hotel_inquiry
+  - action: utter_more_hotel_query
+
+- rule: submit question pyj
+  condition:
+  - active_loop: journey_form
+  steps:
+  - action: journey_form
+  - active_loop: null
+  - slot_was_set:
+    - MONEY: null
+    - DATE: null
+  - action: utter_splendid
+  - action: utter_form
+  - intent: submit 
+  # - action: action_langchain_payload
+  - action: utter_hotel_options
+  - action: action_recommend
+  - action: utter_hotel_query
+
+- rule: Fallback rule
+  steps:
+  - intent: nlu_fallback
+  - action: action_fallback_langchain

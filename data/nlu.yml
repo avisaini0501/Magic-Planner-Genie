@@ -1,0 +1,175 @@
+version: "2.0"
+
+nlu:
+- intent: greet
+  examples: |
+    - hey
+    - hello
+    - hi
+    - hello there
+    - good morning
+    - good evening
+    - moin
+    - hey there
+    - let's go
+    - hey dude
+    - goodmorning
+    - goodevening
+    - good afternoon
+
+# - intent: choose_topic
+#   examples: |
+#     - plan your Journey
+#     - general inquiry
+#     - discount and coupons
+
+- intent: plan_your_journey
+  examples: |
+    - I have a limited budget for a vacation. Can you suggest affordable destinations and activities?
+    - I want to plan a vacation. What should be my itinerary?
+    - I'm interested in planning a trip. Can you assist me with creating an itinerary?
+    - I'm thinking of going to . Can you provide some guidance on planning the trip?
+    - I'm dreaming of a vacation. How can I go about planning it?
+    - Plan trip, create itinerary
+    - Begin trip planning
+    - I want to plan a trip with my friends. Any suggestions on where to go and what to do?
+    - I want to experience a memorable vacation. Can you provide tips on planning an itinerary?
+    - Initiate itinerary creation for my trip
+    - What's the best itinerary for a [7](DATE)-day trip on a [7000$](MONEY) budget?
+    - I have a budget of [$3500](MONEY) for a [4](DATE)-day trip to . What attractions should I prioritize?
+    - I'm looking to spend [5](DATE) days. Can you suggest an itinerary that fits my [$5000](MONEY) budget?
+    - I'm planning a family vacation and need help creating an itinerary within my budget.
+    - I'm planning a trip. Can you help me create an itinerary? 
+    - I want to visit and need help organizing my trip. What suggestions do you have?
+    - My budget for a [4](DATE)-day trip to is [$1500](MONEY)
+    - I'm planning a [2](DATE)-day vacation at with a budget of [$1000](MONEY)
+    - My budget for a [3](DATE)-day visit to is [$1200](MONEY)
+    - I'm looking to spend [$3000](MONEY) on a [5](DATE)-day vacation
+    - I want to plan a trip to for my daughter's birthday. We'll be there for [4](DATE) days with a budget of [$4000](MONEY)
+    - Can you suggest a itinerary for [5](DATE) days? We have a budget of [$6000](MONEY)
+    - I want to plan a trip for [6](DATE) days. Can you recommend an itinerary? and our budget is [$8000](MONEY)
+    - Planning a [7](DATE)-day trip. What activities can I include with a budget of [$6000](MONEY)?
+    - Family trip coming up, [4](DATE) days
+    - Planning a [4](DATE)-day family getaway
+    - What's the recommended itinerary for a [4](DATE)-day trip on a [$4000](MONEY) budget
+    - [5](DATE) days trip can you help me plan it
+    - I have a budget of [$2000](MONEY)
+    - I have [$2500](MONEY) to spend
+    - I want to go on a trip
+
+- intent: general_inquiry
+  examples: |
+    - provide information about the dining options 
+    - How do I purchase tickets
+    - any height restrictions for the rides
+    - any special events happening
+    - any Disney-themed merchandise stores
+    - best way to get from the airport to
+    - What are some must-see attractions
+    - recommend the best time of year
+    - the transportation options available within
+    - How can I make dining reservations
+    - Are there any character meet-and-greet experiences
+    - Can you tell me more about the FastPass+ system
+    - How can I find out if a particular ride is suitable for my young child
+    - Are strollers available for rent
+    - What are the park hours
+    - is the hotel kid friendly
+    - can we bring dogs
+    - Are there any discounts or coupons?
+    - I'm looking for discounts
+    - Can you give me some coupons?
+    - Tell me about the discounts
+    - Show me the available coupons
+    - How do I earn Disney rewards?
+    - What's the Disney rewards program about?
+    - Tell me more about the Disney reward points.
+    - How can I benefit from Disney rewards?
+    - What are the perks of the Disney rewards program?
+    - I'd like to redeem my Disney reward points.
+    - How can I use my rewards for park tickets?
+    - Can I use my points to get a FastPass?
+    - I want to redeem my rewards for merchandise.
+    - Is it possible to use my reward points for dining in the park?
+    - How many reward points do I have?
+    - Can you tell me my Disney rewards balance?
+    - I'd like to check how many points I've accumulated.
+    - What's my current Disney rewards total?
+    - Are there any Disney discount coupons available?
+    - How can I get Disney promotional coupons?
+    - Tell me about the latest Disney park ticket discounts.
+    - I heard there's a coupon for Disney merchandise, is that true?
+    - Is this coupon still valid for Disney Springs restaurants?
+    - Can you check the validity of this promotional code?
+    - I have an old coupon, can I still use it at EPCOT?
+    - Until when is this discount coupon valid?
+
+- intent: general_inquiry_exact
+  examples: |
+    - general inquiry
+    - I have a query 
+    - i would like to ask something
+    - I want to inquire 
+
+- intent: submit
+  examples: |
+    - submit
+    - Submit
+
+- intent: affirm
+  examples: |
+    - Yes
+    - Sure
+    - Yes, I have more questions
+
+- intent: deny
+  examples: |
+    - No
+    - No, thank you
+    - That's all
+
+- intent: select_hotel
+  examples: |
+    - I'd like to stay at the [Yacht Club Resort](ORG).
+    - I choose [Wilderness Lodge](ORG).
+    - I prefer [Animal Kingdom Villas](ORG).
+    - I would like [Beach Club Villas](ORG)
+    - I am thinking of [Polynesian Village Resort](ORG)
+
+- intent: itinerary 
+  examples: |
+    - Can we modify our visit to the Magic Kingdom to another day?
+    - I'd like to modify our schedule and add a character meet and greet.
+    - Can you modify the itinerary to include the EPCOT fireworks show in the evening?
+    - We're thinking to modify the plan and skip the water park this time.
+    - Is it possible to modify our dining reservations to a different restaurant in Disney Springs?
+    - We want to modify the plan and watch the parade at the Animal Kingdom.
+    - I'd like to modify and add FastPass+ for the Space Mountain ride.
+    - Can we modify our trip to start with Hollywood Studios instead?
+    - I heard about the new Star Wars attraction. Can we modify our day to fit that in?
+    - Let's modify and fit in the Toy Story Land first thing in the morning.
+    - I want to modify the current plan and book a dining experience at Cinderella's Castle.
+    - Can we modify the itinerary to have more breaks in between? The kids might get tired.
+    - Let's modify our Day 3 to include more character photo ops.
+
+- intent: goodbye
+  examples: |
+    - cu
+    - good by
+    - cee you later
+    - good night
+    - bye
+    - goodbye
+    - have a nice day
+    - see you around
+    - bye bye
+    - see you later
+
+- intent: bot_challenge
+  examples: |
+    - are you a bot?
+    - are you a human?
+    - am I talking to a bot?
+    - am I talking to a human?
+
+- intent: fallback

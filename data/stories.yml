@@ -1,0 +1,164 @@
+version: "2.0"
+
+stories:
+
+- story: greet
+  steps:
+  - intent: greet
+  - action: utter_greet
+
+- story: plan journey with form
+  steps:
+  - intent: plan_your_journey
+  - action: utter_ask
+  - action: utter_ques
+  - intent: plan_your_journey
+  - slot_was_set:
+    - MONEY: "4000"
+    - DATE: "3"
+  - action: validate_days_and_budget_form
+  - action: journey_form
+  - active_loop: journey_form
+  - active_loop: null
+  - action: utter_splendid
+  - action: utter_form
+  - intent: submit 
+  # - action: action_langchain_payload
+  - action: utter_hotel_options
+  - action: action_recommend
+  - action: utter_hotel_query
+
+- story: plan journey with form 2
+  steps:
+  - action: utter_help
+  - intent: plan_your_journey
+  - action: utter_ques
+  - intent: plan_your_journey
+  - slot_was_set:
+    - MONEY: "4000"
+    - DATE: "3"
+  - action: validate_days_and_budget_form
+  - action: journey_form
+  - active_loop: journey_form
+  - active_loop: null
+  - action: utter_splendid
+  - action: utter_form
+  - intent: submit
+  # - action: action_langchain_payload
+  - action: utter_hotel_options
+  - action: action_recommend
+  - action: utter_hotel_query
+
+- story: General Inquiry Flow 
+  steps:
+    - intent: general_inquiry
+    - action: utter_ask2
+    - action: utter_question
+    - intent: general_inquiry
+    - action: action_save_user_question
+    - slot_was_set:
+      - user_query: "what are the park hours?"
+    - action: inquiry_form
+    - active_loop: inquiry_form
+    - active_loop: null
+    - action: action_handle_inquiry
+    - action: utter_more_queries
+
+- story: General Inquiry Flow 2
+  steps:
+    - intent: general_inquiry_exact
+    - action: utter_question
+    - intent: general_inquiry
+    - action: action_save_user_question
+    - slot_was_set:
+      - user_query: "what are the park hours?"
+    - action: inquiry_form
+    - active_loop: inquiry_form
+
+- story: no more queries
+  steps:
+  - action: utter_more_queries 
+  - intent: deny
+  - action: utter_help
+
+- story: utter more queries
+  steps:
+    - action: utter_more_queries
+    - intent: affirm
+    - action: utter_question
+    - intent: general_inquiry
+    - action: action_save_user_question
+    - slot_was_set:
+      - user_query: "what are the park hours?"
+    - action: inquiry_form
+    - active_loop: inquiry_form
+
+- story: more hotel queries
+  steps:
+  - action: utter_hotel_query
+  - intent: affirm
+  - action: utter_question
+  - intent: general_inquiry
+  - action: action_save_hotel_question
+  - slot_was_set:
+    - hotel_query: "is there wifi"
+  - action: hotel_form
+  - active_loop: hotel_form
+  - active_loop: null
+  - action: action_handle_hotel_inquiry
+  - action: utter_more_hotel_query
+
+- story: more hotel queries 2
+  steps:
+  - action: utter_more_hotel_query
+  - intent: affirm
+  - action: utter_question
+  - intent: general_inquiry
+  - action: action_save_hotel_question
+  - slot_was_set:
+    - hotel_query: "is there wifi"
+  - action: hotel_form
+  - active_loop: hotel_form
+
+
+- story: utter no hotel query
+  steps: 
+    - action: utter_hotel_query
+    - intent: deny
+    - action: utter_select_hotel 
+    - intent: select_hotel
+    - action: utter_itinerary
+    - action: action_langchain_payload
+    - action: utter_ifmodify
+
+- story: utter no hotel query 2
+  steps: 
+    - action: utter_more_hotel_query
+    - intent: deny
+    - action: utter_select_hotel 
+    - intent: select_hotel
+    - action: utter_itinerary
+    - action: action_langchain_payload
+    - action: utter_ifmodify
+
+- story: no itinerary modification
+  steps:
+    - action: utter_ifmodify
+    - intent: deny
+    - action: utter_farewell_msg1
+    - action: utter_farewell_msg2
+
+- story: itinerary modification
+  steps:
+    - action: utter_ifmodify
+    - intent: affirm
+    - action: utter_modifyit
+    - intent: itinerary
+    - action: action_save_user_question
+    - action: action_langchain_payload2
+    - action: utter_itinerary
+    - action: utter_showit
+    - action: utter_ifmodify
+
+
+  
